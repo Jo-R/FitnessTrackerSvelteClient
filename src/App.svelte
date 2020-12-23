@@ -1,12 +1,5 @@
 <script>
-  import { getRunActivity } from "./api/runActivity";
-  import { onMount } from "svelte";
-
-  let activity;
-  onMount(async () => {
-    const res = await getRunActivity(1);
-    activity = res;
-  });
+  import EnterRunForm from "./components/EnterRunForm.svelte";
 </script>
 
 <style>
@@ -25,5 +18,6 @@
 </style>
 
 <main>
-  <p>{activity && activity.title}</p>
+  <h1>Track yo' runs</h1>
+  <EnterRunForm />
 </main>

@@ -1,4 +1,5 @@
 <script>
+  import { addRunActivity } from "../api/runActivity";
   let title;
   let date;
   let time;
@@ -7,12 +8,22 @@
   let minuteDuration;
   let secondDuration;
   let avgHR;
-  let avgPace;
+  let avgPace; // TODO pace is a timespan as well
   let notes;
 
-  function handleSubmit(evt) {
-    console.log("submitted");
-    // NEED USER ID AS WELL
+  async function handleSubmit(evt) {
+    const response = await addRunActivity({
+      // TODO ensure right thing is passed in if nothing entered in form
+      userId: "d30e52b0-304c-4aa1-3c68-08d888b124c0",
+      date: `${date}T${time}`, // TODO timezone
+      title,
+      distanceMile: distance,
+      // duration: `${hourDuration}:${minuteDuration}:${secondDuration}`,
+      averageHr: avgHR,
+      // averagePace: avgPace,
+      notes,
+    });
+    console.log(response);
   }
 </script>
 
@@ -34,17 +45,17 @@
 <form on:submit|preventDefault={handleSubmit}>
   <div class="full-width">
     <label for="titleInput">Give your run a title:</label>
-    <input type="text" bind:value={title} />
+    <input type="text" bind:value={title} required />
   </div>
 
   <div>
     <label for="dateInput">Date *:</label>
-    <input type="date" id="dateInput" bind:value={date} />
+    <input type="date" id="dateInput" bind:value={date} required />
   </div>
 
   <div>
     <label for="timeInput">Time *:</label>
-    <input type="time" id="timeInput" bind:value={time} />
+    <input type="time" id="timeInput" bind:value={time} required />
   </div>
 
   <div>

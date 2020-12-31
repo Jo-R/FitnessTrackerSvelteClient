@@ -8,3 +8,12 @@ export const getRunActivityById = async (id) => {
       console.error(error);
     }
 };
+
+export const addRunActivity = async (activity) => {
+    try {
+      const response = await Api.post(`/RunActivity`, activity);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+};

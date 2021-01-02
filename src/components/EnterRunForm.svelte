@@ -4,26 +4,31 @@
   let date;
   let time;
   let distance;
-  let hourDuration;
-  let minuteDuration;
-  let secondDuration;
+  let hourDuration = "00";
+  let minuteDuration = "00";
+  let secondDuration = "00";
   let avgHR;
-  let avgPace; // TODO pace is a timespan as well
-  let notes;
+  let avgPaceMin = "00";
+  let avgPaceSec = "00";
+  let notes = "";
 
-  async function handleSubmit(evt) {
-    const response = await addRunActivity({
-      // TODO ensure right thing is passed in if nothing entered in form
-      userId: "d30e52b0-304c-4aa1-3c68-08d888b124c0",
-      date: `${date}T${time}`, // TODO timezone
-      title,
-      distanceMile: distance,
-      // duration: `${hourDuration}:${minuteDuration}:${secondDuration}`,
-      averageHr: avgHR,
-      // averagePace: avgPace,
-      notes,
-    });
-    console.log(response);
+  async function handleSubmit() {
+    try {
+      const dateTime = new Date(`${date}T${time}`);
+      const response = await addRunActivity({
+        userId: "d30e52b0-304c-4aa1-3c68-08d888b124c0",
+        date: dateTime,
+        title,
+        distanceMile: distance,
+        duration: `${hourDuration}:${minuteDuration}:${secondDuration}`,
+        averageHr: avgHR,
+        averagePace: `00:${avgPaceMin}:${avgPaceSec}`,
+        notes,
+      });
+      console.log(response);
+    } catch {
+      console.error("didn't add run"); // TODO
+    }
   }
 </script>
 
@@ -77,7 +82,8 @@
 
   <div>
     <label for="paceInput">Avg pace (min mile):</label>
-    <input type="number" id="paceInput" bind:value={avgPace} />
+    <input type="number" id="paceMinuteInput" bind:value={avgPaceMin} />
+    <input type="number" id="paceSecondInput" bind:value={avgPaceSec} />
   </div>
 
   <div>

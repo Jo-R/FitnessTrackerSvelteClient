@@ -34,7 +34,8 @@
 
 <style>
   form {
-    border: 1px grey solid;
+    border: 3px grey solid;
+    background-color: #f2f6f8;
     padding: 1rem;
     border-radius: 3px;
     display: grid;
@@ -52,7 +53,7 @@
   input,
   textarea {
     border: none;
-    border-bottom: 2px solid lightblue;
+    border-bottom: 2px solid #4d7298;
   }
 
   .narrow {
@@ -60,8 +61,9 @@
   }
 
   button {
-    background-color: lightblue;
+    background-color: #afcbd4;
     border-radius: 3px;
+    padding: 0.5rem 1.5rem;
     align-self: center;
     justify-self: center;
   }
